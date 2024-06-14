@@ -1,17 +1,17 @@
-// Button.tsx
 import React from 'react';
 
-interface ButtonProps {
-  title: string;
+interface EventProps {
+  title: string,
+  imageUrl: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ title }) => {
+const Event: React.FC<EventProps> = ({ title, imageUrl }) => {
   return (
-            <a className="w-6/12 px-3 mb-10">
-              <div className="w-full h-80 bg-current">image</div>
+            <div className="w-6/12 px-3 mb-10">
+              <img className="w-full h-80 bg-current" src={imageUrl}/>
               <p className="text-left">{title}</p>
-            </a>
+            </div>
           )
 };
 
-export default Button;
+export default Event;
