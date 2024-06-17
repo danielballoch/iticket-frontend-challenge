@@ -28,7 +28,7 @@ export default function Page(){
           <a href="/cart"><Image src="/cart.png" width={35} height={35}/></a>
         </div>
         <div className="flex flex-wrap w-11/12 justify-between mt-52">
-          {data.map((e: any, i) =><a href={"/events/"+(i+1)}><Event title={e.name} imageUrl={e.imageUrl}/></a>)}
+          {data.map((e: any, i) =><a className="w-6/12" href={"/events/"+(i+1)}><Event title={e.name} imageUrl={e.imageUrl}/></a>)}
           <Event title="Placeholder Event" imageUrl=""/>
           <Event title="Placeholder Event" imageUrl=""/>
           <Event title="Placeholder Event" imageUrl=""/>
