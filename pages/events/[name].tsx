@@ -112,11 +112,11 @@ export default function Page({event}) {
                     "seat(s)"}
                     </div>
                     <h3 className="text-2xl mb-4">Summary:</h3>
-                    <p className="mb-4">Seat(s) selected: 
+                    <div className="mb-4">Seat(s) selected: 
                       {seatPrices.length === 0? <p className="text-xs">Please select your seats above.</p>: ""}
-                      {seatPrices.map((seat, i) => (<p>1 x {seat.priceName} Seat (${seat.price})</p> ))}
+                      {seatPrices.map((seat, i) => (<p>1 x {seat.priceName} Seat ({seat.price})</p> ))}
                       {seatPrices.length != 0? <p className="text-xs">(click on seat map above to remove)</p>: ""}
-                    </p>
+                    </div>
                     <p>Total Price: ${price}</p>
                     <button className="border-2 py-2.5 px-40 my-4">Add to Cart</button>
                 </div>
