@@ -7,8 +7,10 @@ export default function Page({event}) {
     // const [rows, updateRows] = useState()
     const [selected, setSelected] = useState([])
     const [price, setPrice] = useState(0);
+    const [seatPrices, setSeatPrices] = useState([])
     console.log("event data:", event)
     // console.log("ticket test", event[0].allocatedSeatIds)
+    //get seats for allocated event
     let tickets = []
     let rows = [[]]
     if(event[0].type === "allocated"){
@@ -23,6 +25,8 @@ export default function Page({event}) {
         rows.push([])
       }
     }
+
+    //sort tickets into rows so I can map to elements
     let row = 0;
     for (let i = 0; i < tickets.length; i++){
       // console.log("i:", i)
@@ -39,11 +43,23 @@ export default function Page({event}) {
     // console.log(row)
 
     useEffect(()=> {
+      //run selected seats through api data to get total price
       console.log("selected seats: ", selected)
-      let seatPrice = 0;
+      let seatprices = []
+      let total = 0;
       for(let i = 0; i < selected.length; i++){
-        console.log(selected[i])
+        let seatIndex = tickets.findIndex(x => x.id === selected[i])
+        console.log("seat index: ", seatIndex)
+        //price should be prices[tickets[seatIndex].priceIds[0]]
+        let seatprice = event[1][tickets[seatIndex].priceIds[0]]
+        console.log("price:", seatprice)
+        seatprices.push(seatprice);
+        total = total + seatprice.price;
       }
+      console.log(seatprices)
+      setSeatPrices(seatprices);
+      setPrice(total);
+
     },[selected])
 
     return (
@@ -95,6 +111,12 @@ export default function Page({event}) {
                     : 
                     "seat(s)"}
                     </div>
+                    <h3 className="text-2xl mb-4">Summary:</h3>
+                    <p className="mb-4">Seat(s) selected: 
+                      {seatPrices.length === 0? <p className="text-xs">Please select your seats above.</p>: ""}
+                      {seatPrices.map((seat, i) => (<p>1 x {seat.priceName} Seat (${seat.price})</p> ))}
+                      {seatPrices.length != 0? <p className="text-xs">(click on seat map above to remove)</p>: ""}
+                    </p>
                     <p>Total Price: ${price}</p>
                     <button className="border-2 py-2.5 px-40 my-4">Add to Cart</button>
                 </div>
