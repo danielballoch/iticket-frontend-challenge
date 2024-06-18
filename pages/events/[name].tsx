@@ -90,15 +90,18 @@ export default function Page({event}) {
                           {row.map((seat) => (
                             <div 
                             onClick={() => {
-                              if(selected.includes(seat.id)){
-                                var currentSelected = [...selected];
-                                var index = currentSelected.indexOf(seat.id); 
-                                if(index !== -1){
-                                  currentSelected.splice(index, 1); 
-                                  setSelected(currentSelected);
+                              //check seat is available then add to selected seats state
+                              if(seat.status === 0){
+                                if(selected.includes(seat.id)){
+                                  var currentSelected = [...selected];
+                                  var index = currentSelected.indexOf(seat.id); 
+                                  if(index !== -1){
+                                    currentSelected.splice(index, 1); 
+                                    setSelected(currentSelected);
+                                  }
                                 }
+                                else{setSelected(selected => [...selected, seat.id])}}
                               }
-                              else{setSelected(selected => [...selected, seat.id])}}
                             }
                             className={selected.includes(seat.id)? "flex justify-center items-center w-14 h-14 bg-green-600 hover:cursor-pointer text-white" : seat.status === 0? "flex justify-center items-center w-14 h-14 bg-stone-300 hover:bg-green-600 hover:cursor-pointer hover:text-white" : "flex justify-center items-center w-14 h-14 bg-stone-500"}>{seat.seatRow}{seat.seatColumn}</div>
                           ))}
